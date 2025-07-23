@@ -1,26 +1,25 @@
-# Dockerfile
+# Gunakan base image PHP + Apache
 FROM php:8.2-apache
 
-# Install PHP ekstensi dan Composer
+# Install ekstensi Laravel
 RUN apt-get update && apt-get install -y \
-    zip unzip git curl libzip-dev libonig-dev libxml2-dev \
+    git unzip libzip-dev zip \
     && docker-php-ext-install pdo pdo_mysql zip
 
-# Install Composer
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+# Salin Laravel ke dalam container
+COPY . /var/www/html
 
-# Set working directory
+# Pindah ke folder Laravel
 WORKDIR /var/www/html
 
-# Copy semua file Laravel ke container
-COPY . .
+# Install Composerr
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+RUN composer install --no-interaction --prefer-dist
 
-# Install Laravel dependencies
-RUN composer install --no-interaction --optimize-autoloader
-
-# Set folder permission
+# Ubah permission & file .env
 RUN chown -R www-data:www-data /var/www/html \
-    && chmod -R 755 /var/www/html/storage
+    && cp .env.example .env \
+    && php artisan key:generate
 
 EXPOSE 8000
 
