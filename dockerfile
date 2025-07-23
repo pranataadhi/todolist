@@ -23,7 +23,7 @@ RUN cp .env.example .env && \
     php artisan key:generate && \
     chown -R www-data:www-data /var/www/html
 
-# Buka port 8000
+# Buka port 8000 nnn
 EXPOSE 8000
 
 # Jalankan Laravel menggunakan built-in PHP server
