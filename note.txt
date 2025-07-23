@@ -1,1 +1,1 @@
-test ci/cd yyy
+test ci/cd y
