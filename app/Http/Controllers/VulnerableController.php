@@ -7,15 +7,12 @@ use Illuminate\Support\Facades\DB;
 
 class VulnerableController extends Controller
 {
-    public function vulnerableQuery(Request $request)
+    public function testSQLi(Request $request)
     {
         $id = $request->input('id');
+        $sql = "SELECT * FROM users WHERE id = $id"; // rentan
 
-        // ❌ INI RENTAN SQL INJECTION karena input user langsung disisipkan ke query tanpa binding
-        $query = "SELECT * FROM users WHERE id = $id";
-
-        $results = DB::select($query);
-
-        return response()->json($results);
+        $result = DB::select($sql);
+        return response()->json($result);
     }
 }
