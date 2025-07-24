@@ -54,7 +54,7 @@
                         @endif
                         <!-- 02. Form input data -->
                         <form id="todo-form" action="{{ route('todo.post') }}" method="post">
-                            @csrf
+                            {{-- @csrf --}}
                             <div class="input-group mb-3">
                                 <input type="text" class="form-control" name="task" id="todo-input"
                                     placeholder="Tambah task baru" required value="{{ old('task') }}">
@@ -92,7 +92,7 @@
                                     <div class="btn-group">
                                         <form action="{{ route('todo.delete', ['id' => $item->id]) }}" method="POST"
                                             onsubmit="return confirm ('yakin menghapus data?')">
-                                            @csrf
+                                            {{-- @csrf --}}
                                             @method('delete')
                                             <button class="btn btn-danger btn-sm delete-btn">✕</button>
                                         </form>
@@ -104,7 +104,7 @@
                                 <!-- 05. Update Data -->
                                 <li class="list-group-item collapse" id="collapse-{{ $loop->index }}">
                                     <form action="{{ route('todo.update', ['id' => $item->id]) }}" method="POST">
-                                        @csrf
+                                        {{-- @csrf --}}
                                         @method('put')
                                         <div>
                                             <div class="input-group mb-3">
